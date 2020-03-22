@@ -5,32 +5,50 @@ using namespace std;
 
 int main() {
     int t,flag;cin>>t;
-	char A[26],B[26];
-	loop(i,0,26)
-	    A[i]='a'+i;
+    char A[26],B[26];
+    loop(i,0,26)
+        A[i]='a'+i;
     loop(i,0,26)
         cin>>B[i];
     while(t--){
         string s;
-        cin>>s;
-        loop(i,0,s.size()){
-            flag=0;
-            if((s[i]<=90)&&(s[i]>=65)){
-                s[i]=s[i]+32;
-                flag=1;
+        int j,k;
+        cin>>s;   
+        loop(i,0,s.size())
+        {
+            if(s[i]=='_')
+            {
+                cout<<" ";
+                continue;
             }
-            loop(j,0,26){
-                if(s[i]==A[j]){
-                    if(flag==1){
-                        cout<<char(B[j]-32);
-                        break;}
-                    if(flag==0){
-                        cout<<B[j]; break;}
-                }
-                // If else condition is supposed to run only once in 26 times because iteration runs for all the characters and if all the characters don't match and if s[i] is a underscore we replace it by space  
-                if(s[i]=='_' && j==25)
-                    cout<<" ";
+            else if((s[i]>='a' && s[i]<='z')||(s[i]>='A' && s[i]<='Z'))
+            {
+                int flag = 0;
+                if(s[i]>='A' && s[i]<='Z')
+                    {
+                     flag = 1;
+                     s[i]=s[i]-'A'+'a';
+                    }
+                k=0;
+                loop(j,0,26)
+                    {
+                        if(s[i]==A[j])
+                            {
+                                k=j;
+                                break;
+                            }
+                    }
+                if(flag)
+                    cout<<char(B[k]-'a'+'A');
+                else
+                    cout<<B[k];
             }
-        }cout<<'\n';}
+            else
+            {
+                cout<<s[i];
+            }
+        }
+        cout<<'\n';
+    }
     return 0;
 }
